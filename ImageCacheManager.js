@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const fsUtils = require('./utils/fsUtils');
 const pathUtils = require('./utils/pathUtils');
-const MemoryCache = require('react-native-clcasher/MemoryCache').default;
+const MemoryCache = require('./MemoryCache').default;
 
 module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, path = pathUtils) => {
 
@@ -44,6 +44,7 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
                 return fs.exists(cachedFilePath)
                     .then((exists) => {
                         if (exists) {
+                            console.log('cache hit', { url });
                             return cachedFilePath
                         } else {
                             throw new Error('file under URL stored in url cache doesn\'t exsts');
@@ -54,6 +55,7 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
             .catch(() => {
                 const fileRelativePath = path.getImageRelativeFilePath(cacheableUrl);
                 const filePath = `${options.cacheLocation}/${fileRelativePath}`
+                console.log('cache miss', { url });
 
                 // remove expired file if exists
                 return fs.deleteFile(filePath)
