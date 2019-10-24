@@ -44,6 +44,7 @@
     "ImageCacheManager.js",
     "ImageCacheManagerOptionsPropTypes.js",
     "ImageCachePreloader.js",
+    "MemoryCache.js",
     "utils/fsUtils.js",
     "utils/pathUtils.js"
   ],
